@@ -380,7 +380,7 @@ button.row:hover .sw{border-color:var(--cyan)}
 .tcard:hover img{transform:scale(1.03)}
 .tcap{position:absolute;left:0;right:0;bottom:0;padding:40px 16px 14px;background:linear-gradient(transparent,rgba(0,0,0,.88));display:flex;flex-direction:column;gap:2px}
 .tcap b{font-family:var(--brand);font-weight:400;font-size:26px;color:var(--ink)}
-.tcap .lbl{font-weight:700;color:var(--ink)}
+.tcap .lbl,.tk-title .lbl{font-weight:700;color:#fff;font-size:12px;letter-spacing:.14em;text-shadow:0 1px 8px rgba(0,0,0,.9)}
 .tcap em{font-style:normal;font-size:13px;color:var(--cyan)}
 .tnote{margin:0;font-size:12px;color:var(--dim)}
 /* taste profile: one section at a time, separated by space and a hairline */
@@ -481,7 +481,7 @@ button.row:hover .sw{border-color:var(--cyan)}
 .tk-split button+button{border-left:1px solid var(--line)}
 .tk-split button:hover,.tk-split button:focus-visible{background:rgba(153,255,255,.08);color:var(--cyan)}
 .scale{display:grid;grid-template-columns:repeat(5,1fr);border:1px solid var(--line);border-radius:2px}
-.scale button{padding:14px 4px 10px;font-size:12px;color:var(--dim);display:flex;flex-direction:column;align-items:center;gap:8px;transition:background .2s,color .2s}
+.scale button{padding:14px 4px 10px;font-size:12px;color:var(--dim);display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:8px;transition:background .2s,color .2s}
 .scale button+button{border-left:1px solid var(--line)}
 .scale button:hover,.scale button:focus-visible{background:rgba(153,255,255,.08);color:var(--cyan)}
 .scale i{display:block;border-radius:50%;background:currentColor}
