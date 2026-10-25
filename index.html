@@ -232,6 +232,8 @@ button.row:hover .sw{border-color:var(--cyan)}
 .glyph{height:34px;position:relative}
 .glyph i{position:absolute;width:4px;height:4px;border-radius:50%;background:var(--cyan)}
 .g-quiet i{left:15px;top:15px;opacity:.6}
+.g-quiet{width:34px}
+.g-quiet::before{content:"";position:absolute;inset:4px;border:.75px solid rgba(153,255,255,.6);border-radius:50%}
 .g-amb{width:34px;animation:spin 9s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 .g-act i{animation:pulse 1.6s ease-in-out infinite}
@@ -889,7 +891,7 @@ const S=[...document.querySelectorAll('.screen')];
 const tpl=S.map(s=>s.innerHTML);
 const $=(id)=>document.getElementById(id);
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-let cur=-1,beat=0,busy=false,epoch=0,skip=false,idkQ=false;
+let cur=-1,beat=0,busy=false,epoch=0,skip=false,idkQ=false,idkPick=false;
 const wait=ms=>new Promise(r=>setTimeout(r,reduce?Math.min(ms,60):ms));
 const alive=e=>e===epoch;
 const BARS=(ws)=>'<div class="bars">'+ws.map((w,i)=>`<i style="width:${w}%;animation-delay:${i*90}ms"></i>`).join('')+'</div>';
@@ -940,7 +942,7 @@ const D={
    await say("I can see that you like to listen to classical music. Do you know the biggest reason you keep coming back to it?",ep);
    waitField($('ans')); busy=false; skip=false; if(idkQ){ idkQ=false; advance(); }
  },beats:[
-   async(ep)=>{ await idkPass($('ans'),$('pm'),"Well, why don't we start with how it makes you feel?",ep); },
+   async(ep)=>{ if(pickedIdk()) await idkPass($('ans'),$('pm'),"Well, why don't we start with how it makes you feel?",ep); else { beat++; await answer("It's very soothing and calming",ep); } },
    async(ep)=>{ await answer("It's very soothing and calming",ep); },
    async(ep)=>{ $('ans').textContent=''; $('send').disabled=true;
      await say("Yes, that's right! Your personal AI knows this because you often play classical music when a tight deadline is coming up.",ep);
@@ -979,8 +981,8 @@ const D={
      await wait(1400); if(!alive(ep))return;
      $('f2').hidden=false; $('f2').classList.add('fadein'); waitField($('ans2'));
    },
-   async(ep)=>{ await idkPass($('ans2'),$('pm2'),"Think of a document you loved opening. What was at the top of it?",ep); },
-   async(ep)=>{ $('f2').classList.remove('tap'); await typeText($('ans2'),"Oh yes, I like a textured background here",55,ep); },
+   async(ep)=>{ if(pickedIdk()) await idkPass($('ans2'),$('pm2'),"Think of a document you loved opening. What was at the top of it?",ep); else { beat++; await ambAnswer(ep); } },
+   async(ep)=>{ await ambAnswer(ep); },
    async(ep)=>{ const a=$('ans2'); a.textContent=''; a.classList.remove('cur'); $('f2').hidden=true;
      const pm=$('pm2'); await fadeText(pm,"Lovely. I'll ask your agent for a textured background behind the headers.",ep);
      await wait(2200); if(!alive(ep))return; $('pwin').classList.remove('on'); await wait(500); if(!alive(ep))return;
@@ -1008,10 +1010,12 @@ const D={
 
 async function fadeText(el,text,ep){ el.style.opacity=0; await wait(350); if(!alive(ep))return; el.textContent=text; el.style.opacity=1; await wait(450); }
 async function say(text,ep){ await fadeText($('pm'),text,ep); }
-async function answer(text,ep){ const a=$('ans'); a.textContent=''; a.classList.add('cur'); await wait(300); if(!alive(ep))return; await typeText(a,text,55,ep); }
+async function answer(text,ep){ const a=$('ans'); a.textContent=''; a.classList.add('cur'); a.closest('.field').classList.remove('tap'); a.closest('.field').querySelector('.idk').hidden=true; await wait(300); if(!alive(ep))return; await typeText(a,text,55,ep); }
 /* tutorial answers: the field shows a faint "Click to continue"; the first click answers "I don't know",
    Patronus nudges with a question, the "I don't know" button goes away, and the next click types the real answer */
 function waitField(t){ t.dataset.ph='Click to continue'; t.classList.add('cur'); t.closest('.field').classList.add('tap'); }
+function pickedIdk(){ const p=idkPick; idkPick=false; return p; }
+async function ambAnswer(ep){ $('f2').classList.remove('tap'); $('f2').querySelector('.idk').hidden=true; await typeText($('ans2'),"Oh yes, I like a textured background here",55,ep); }
 async function idkPass(t,pm,nudge,ep){
   const f=t.closest('.field'); f.classList.remove('tap'); t.textContent=''; await typeText(t,"I don't know",25,ep); await wait(700); if(!alive(ep))return;
   t.textContent=''; f.querySelector('.idk').hidden=true; await fadeText(pm,nudge,ep); if(alive(ep)) waitField(t);
@@ -1054,7 +1058,7 @@ function showAsk(){ if($('askc').classList.contains('on'))return; $('pm3').textC
 function showAskField(){ showAsk(); $('f3').hidden=false; $('f3').classList.add('fadein'); waitField($('ans3')); ast=45; }
 async function actIdk(){ ast=46; const ep=epoch; await idkPass($('ans3'),$('pm3'),"Did it remind you of anyone you've worked with?",ep); skip=false; if(alive(ep)&&ast===46) ast=47; }
 async function actType(){
-  ast=48; const ep=epoch; $('f3').classList.remove('tap'); await typeText($('ans3'),"Reminds me of my first manager. She remembered small things about everyone.",50,ep); skip=false; if(alive(ep)&&ast===48) ast=5;
+  ast=48; const ep=epoch; $('f3').classList.remove('tap'); $('f3').querySelector('.idk').hidden=true; await typeText($('ans3'),"Reminds me of my first manager. She remembered small things about everyone.",50,ep); skip=false; if(alive(ep)&&ast===48) ast=5;
 }
 async function actSave(){
   if(ast!==5)return; ast=6; const ep=epoch;
@@ -1068,7 +1072,7 @@ function actNext(){
   else if(ast===3) r.scrollBy({top:lineTop('l2')-innerHeight*.3+4,behavior:'smooth'});
   else if(ast===2||ast===46||ast===48) skip=true;
   else if(ast===4) showAskField();
-  else if(ast===45) actIdk();
+  else if(ast===45){ if(pickedIdk()) actIdk(); else actType(); }
   else if(ast===47) actType();
   else if(ast===5) actSave();
   else if(ast===6) exitDemo();
@@ -1082,7 +1086,7 @@ const ROLL=["We grow to like what we meet again and again: the mere exposure eff
 const GUIDE='<div class="guide"><img src="assets/deer-head.jpg" alt=""></div>';
 const SEND='<button class="send" data-act="tksend" id="tkSend" aria-label="Send" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>';
 let tok=0,tapRes=null,tapQ=false; /* tok bumps when a typed answer should stop; tapRes continues on a click in the field or I don't know; tapQ remembers a click that came early */
-function tapNow(){ if(tapRes) tapRes(); else tapQ=true; }
+function tapNow(kind){ if(tapRes) tapRes(kind); else tapQ=kind; }
 function openDlg(id){ $('scrim').classList.add('on'); $(id).classList.add('on'); }
 function closeAll(){ tok++; tapQ=false; ['scrim','plusM','tk','xq','shareM'].forEach(k=>$(k)?.classList.remove('on')); }
 async function plusAsk(){ const ep=epoch,t=$('plusT'),r=S[cur].querySelector('.roll'); t.textContent=''; r.classList.remove('on'); openDlg('plusM'); await wait(300); if(!alive(ep))return;
@@ -1091,14 +1095,16 @@ async function plusAsk(){ const ep=epoch,t=$('plusT'),r=S[cur].querySelector('.r
 /* every question: the first click gives "I don't know", Patronus nudges, the next click types the real answer */
 async function ask(pm,field,q,nudge,ans,ep){
   const t=++tok, a=field.querySelector('.t'), s=field.querySelector('.send'), k=field.querySelector('.idk');
-  const tap=async()=>{ field.classList.add('tap'); a.dataset.ph='Click to continue'; if(tapQ) tapQ=false; else await new Promise(r=>tapRes=r); tapRes=null; field.classList.remove('tap'); return alive(ep)&&t===tok; };
+  const tap=async()=>{ field.classList.add('tap'); a.dataset.ph='Click to continue'; let kind=tapQ; tapQ=false; if(!kind) kind=await new Promise(r=>tapRes=r); tapRes=null; field.classList.remove('tap'); return alive(ep)&&t===tok?kind:null; };
   s.disabled=true; k.hidden=false; k.disabled=false; a.textContent=''; a.classList.add('cur');
   await fadeText(pm,q,ep); if(!alive(ep)||t!==tok)return;
-  if(!await tap())return;
-  for(const ch of "I don't know"){ if(t!==tok)return; a.textContent+=ch; await wait(25); }
-  await wait(700); if(!alive(ep)||t!==tok)return; a.textContent=''; k.hidden=true;
-  tapQ=false; await fadeText(pm,nudge,ep); if(!alive(ep)||t!==tok)return;
-  if(!await tap())return;
+  const first=await tap(); if(!first)return; k.hidden=true;
+  if(first==='idk'){
+    for(const ch of "I don't know"){ if(t!==tok)return; a.textContent+=ch; await wait(25); }
+    await wait(700); if(!alive(ep)||t!==tok)return; a.textContent='';
+    tapQ=false; await fadeText(pm,nudge,ep); if(!alive(ep)||t!==tok)return;
+    if(!await tap())return;
+  }
   for(const ch of ans){ if(!alive(ep)||t!==tok)return; a.textContent+=ch; await wait(50); }
   s.disabled=false;
 }
@@ -1243,7 +1249,7 @@ const idx=k=>S.findIndex(x=>x.dataset.k===k);
 const OUT=new Set(['intro','brand','ai','ambdemo','actdemo']);
 function go(i){
   if(i<0||i>=S.length)return;
-  epoch++; const ep=epoch; busy=false; skip=false; beat=0; idkQ=false;
+  epoch++; const ep=epoch; busy=false; skip=false; beat=0; idkQ=false; idkPick=false;
   const first=cur<0;
   if(!first){ const old=S[cur]; old.classList.remove('show'); setTimeout(()=>{ if(!old.classList.contains('show')) old.hidden=true; },500); if(!reduce&&OUT.has(S[cur].dataset.k)!==OUT.has(S[i].dataset.k)) wipe(); }
   cur=i; const s=S[cur]; s.innerHTML=tpl[cur]; s.hidden=false;
@@ -1290,25 +1296,25 @@ document.addEventListener('click',e=>{
     if(act==='demo'){ demoFrom='home'; go(idx(a.dataset.to)); }
     if(act==='actsave'){ actSave(); }
     if(act==='nx'){ dismissNudge(a.dataset.n); }
-    if(act==='tidk'){ if(busy){ skip=true; idkQ=true; } else advance(); }
+    if(act==='tidk'){ idkPick=true; if(busy){ skip=true; idkQ=true; } else advance(); }
     if(act==='plus'){ plusAsk(); }
     if(act==='nav'){ const h=S[cur]; h.querySelectorAll('.nv').forEach(n=>n.classList.toggle('on',n===a)); h.querySelectorAll('.pg').forEach(g=>g.classList.toggle('on',g.dataset.pg===a.dataset.pg)); h.querySelector('.hm').scrollTop=0; }
     if(act==='setmode'){ S[cur].querySelectorAll('.mrow').forEach(m=>m.classList.toggle('on',m===a)); $('modeLbl').textContent=a.dataset.m+' mode'; }
-    if(act==='tap'){ tapNow(); }
+    if(act==='tap'){ tapNow('field'); }
     if(act==='close'){ closeAll(); }
     if(act==='take'){ takeOpen(); }
     if(act==='tkside'){ takeSide(a.dataset.s); }
     if(act==='tkstr'){ if(+a.dataset.n) takeStr(+a.dataset.n); else strIdk(); }
     if(act==='tkstrgo'){ strMock(); }
     if(act==='tksend'){ if(!a.disabled) takeNext(); }
-    if(act==='tkidk'){ tapNow(); }
+    if(act==='tkidk'){ tapNow('idk'); }
     if(act==='cloud'){ a.parentNode.querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===a)); $('cloud').innerHTML=cloudHTML(a.dataset.s); }
     if(act==='shr'){ if(a.dataset.s==='all') $('shareM').classList.add('on'); else takeShare(a.dataset.s); }
     if(act==='shrok'){ takeShare('all'); }
     if(act==='shrno'){ $('shareM').classList.remove('on'); }
     if(act==='xp'){ xpOpen(a.dataset.t,a.dataset.s); }
     if(act==='xqsend'){ if(!a.disabled) xpNext(); }
-    if(act==='xqidk'){ tapNow(); }
+    if(act==='xqidk'){ tapNow('idk'); }
     return;
   }
   if(e.target.closest('#back')){ e.stopPropagation(); back(); return; }
