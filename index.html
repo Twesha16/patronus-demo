@@ -593,7 +593,7 @@ button.row:hover .sw{border-color:var(--cyan)}
     <main>
       <header><strong>Riya's personal AI agent</strong><span>Private</span></header>
       <div class="thread" id="thread"></div>
-      <div class="composer"><div class="ph" id="ph">Message your agent</div><button class="pbtn" data-act="go" id="aiPaste">Paste</button></div>
+      <div class="composer"><div class="ph" id="ph">Click Paste here</div><button class="pbtn" data-act="go" id="aiPaste">Paste</button></div>
     </main>
   </div>
 </section>
@@ -917,12 +917,12 @@ const D={
  ai:{light:true,beats:[async(ep)=>{
    const ph=$('ph'),th=$('thread'),btn=$('aiPaste');
    btn.disabled=true; ph.innerHTML=BARS([92,78,85,40]); await wait(900); if(!alive(ep))return;
-   ph.textContent='Message your agent';
+   ph.textContent='';
    const u=document.createElement('div'); u.className='u'; u.innerHTML=BARS([92,78,85,40]); th.appendChild(u);
    await wait(500); if(!alive(ep))return;
    const a=document.createElement('div'); a.className='a'; a.innerHTML='<span class="spark">✳</span><div class="typing"><i></i><i></i><i></i></div>'; th.appendChild(a);
    await wait(1300); if(!alive(ep))return;
-   a.innerHTML='<span class="spark">✳</span><div><p>Done. I pulled together 214 of your preferences across 9 areas of your life, and left out anything sensitive.</p><span class="chip">✓ Context copied to your clipboard</span></div>';
+   a.innerHTML='<span class="spark">✳</span><div><p>Done. I pulled together 214 of your preferences across 9 areas of your life, and left out anything sensitive.</p><span class="chip">✓ Context copied to your clipboard</span></div>'; ph.textContent='Click to proceed';
  }]},
 
  back:{beats:[async(ep)=>{
