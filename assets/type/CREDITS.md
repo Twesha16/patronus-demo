@@ -9,11 +9,13 @@
 All from https://commons.wikimedia.org (960px thumbnails). CC BY/BY-SA require attribution if the demo is published.
 
 - ../takes/pineapple-pizza.jpg — "Pizza with pineapple", Janine from Mililani, Hawaii, CC BY 2.0
-- ../cars/ambassador.jpg — "White Ambassador Car in Varanasi", Dainis Matisons, CC BY 4.0
-- ../cars/padmini.jpg — "Mumbai Taxi - The Fiat Padmini", Rajarshi MITRA, CC BY 2.0
-- ../cars/mini-1959.jpg — "Morris Mini-Minor 1959 (621 AOK)", DeFacto, CC BY-SA 2.5
-- ../cars/mini-2014.jpg — "2014 Mini Cooper Hardtop", qJake, CC BY-SA 2.0
-- ../decor/boho.jpg — "Boho-interior-hanging-rug", homestilo, CC BY 2.0
-- ../decor/unmade.jpg — "Messy bed and closed blinds (Unsplash)", Quin Stevenson, CC0
-- ../decor/loft.jpg — "NY loft bedroom (Unsplash)", Gabriel Beaudry, CC0
-- ../decor/minimal.jpg — "USVI IMG 5173 - Minimalist bedroom", Government of the USVI, public domain
+- ../biz/walker.jpg — "Madam C. J. Walker", Addison N. Scurlock, public domain
+- ../biz/tata.jpg — "Sir J. N. Tata (cropped)", unknown publisher, CC BY 4.0
+- ../biz/carnegie.jpg — "Andrew Carnegie, three-quarter length portrait, 1913", Theodore C. Marceau, public domain
+- ../biz/rockefeller.jpg — "Portrait of J. D. Rockefeller", Scientific American, public domain
+- ../biz/wedgwood.jpg — "Portrait Medallion of Josiah Wedgwood", Yale Center for British Art, CC0
+- ../fashion/kente.jpg — "Traditional Kente of Volta region", Warmglow, CC0
+- ../fashion/kimono.jpg — "Bridal kimono, late Edo to early Meiji period", Hiart, CC0
+- ../fashion/chanel.jpg — "Three-piece suit, Coco Chanel, early 1960s", Daderot, CC0
+- ../fashion/dior.jpg — "Model in New Look fashion, 1950", Rob Hillier, public domain
+- ../fashion/banarasi.jpg — "Banarasi sari pallu", User:आशीष भटनागर, public domain
