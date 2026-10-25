@@ -660,7 +660,7 @@ button.row:hover .sw{border-color:var(--cyan)}
       <p>Picked from what your AI shared. You can change them any time.</p></div></div>
     <div class="areas" data-in="500">
       <div class="area sel"><img src="assets/type/horn-ok.jpg" alt=""><span><em>Suggested</em>Fonts</span></div>
-      <div class="area sel"><img src="assets/biz/walker.jpg" alt=""><span><em>Suggested</em>Historical business figures</span></div>
+      <div class="area sel"><img src="assets/biz/walker.jpg" alt=""><span><em>Suggested</em>Leadership principles</span></div>
       <div class="area sel"><img src="assets/fashion/kente.jpg" alt=""><span><em>Suggested</em>Fashion</span></div>
       <div class="area"><i class="dotimg"></i><span>Scent</span></div>
       <div class="area"><i class="dotimg"></i><span>Music for focus</span></div>
@@ -764,13 +764,13 @@ button.row:hover .sw{border-color:var(--cyan)}
       <div class="pg on" data-pg="explore">
       <div class="exh"><h1>Explore</h1><button class="plus" data-act="plus" aria-label="Explore something new"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14"/></svg></button></div>
       <div class="ex">
-        <div class="exhead"><div><h2>Fonts, historical business figures &amp; fashion</h2><p>What you're exploring this week. Look first, decide later.</p></div><span class="wk">Day 4 of 7</span></div>
+        <div class="exhead"><div><h2>Fonts, leadership principles &amp; fashion</h2><p>What you're exploring this week. Look first, decide later.</p></div><span class="wk">Day 4 of 7</span></div>
         <div class="shots">
           <button class="shot" data-act="xp" data-t="fonts" data-s="horn"><img src="assets/type/horn-ok.jpg" alt="Hand-painted Horn OK lettering on a lorry"><span class="cap"><em>Fonts</em>Horn OK, painted by hand</span><span class="go">Start exploring</span></button>
-          <button class="shot" data-act="xp" data-t="biz" data-s="walker"><img src="assets/biz/walker.jpg" alt="Portrait of Madam C. J. Walker"><span class="cap"><em>Business figures</em>Madam C. J. Walker</span><span class="go">Start exploring</span></button>
+          <button class="shot" data-act="xp" data-t="biz" data-s="walker"><img src="assets/biz/walker.jpg" alt="Portrait of Madam C. J. Walker"><span class="cap"><em>Leadership</em>Lift others as you climb</span><span class="go">Start exploring</span></button>
           <button class="shot" data-act="xp" data-t="fashion" data-s="kente"><img src="assets/fashion/kente.jpg" alt="Woven kente cloth from Ghana"><span class="cap"><em>Fashion</em>Kente cloth, Ghana</span><span class="go">Start exploring</span></button>
           <button class="shot" data-act="xp" data-t="fonts" data-s="caslon"><img src="assets/type/caslon.jpg" alt="William Caslon's 1734 type specimen sheet"><span class="cap"><em>Fonts</em>Caslon specimen, 1734</span><span class="go">Start exploring</span></button>
-          <button class="shot" data-act="xp" data-t="biz" data-s="tata"><img src="assets/biz/tata.jpg" alt="Portrait of Jamsetji Tata"><span class="cap"><em>Business figures</em>Jamsetji Tata</span><span class="go">Start exploring</span></button>
+          <button class="shot" data-act="xp" data-t="biz" data-s="tata"><img src="assets/biz/tata.jpg" alt="Portrait of Jamsetji Tata"><span class="cap"><em>Leadership</em>Build for people, not output</span><span class="go">Start exploring</span></button>
           <button class="shot" data-act="xp" data-t="fashion" data-s="kimono"><img src="assets/fashion/kimono.jpg" alt="Embroidered bridal kimono, 19th-century Japan"><span class="cap"><em>Fashion</em>Bridal kimono, Japan</span><span class="go">Start exploring</span></button>
         </div>
         <div class="ops">
@@ -839,7 +839,7 @@ button.row:hover .sw{border-color:var(--cyan)}
         <div class="rows">
           <div class="fd"><span class="ini">A</span><div><b>Arjun</b><span class="ex2">Exploring film scores, ceramics</span><span class="lt">Pineapple on pizza: <em>Not for me</em> · "Fruit belongs in dessert."</span></div></div>
           <div class="fd"><span class="ini">M</span><div><b>Meera</b><span class="ex2">Exploring scent, fashion</span><span class="lt">Pineapple on pizza: <em>For me</em> · "Only with jalapeños."</span></div></div>
-          <div class="fd"><span class="ini">K</span><div><b>Kabir</b><span class="ex2">Exploring historical business figures</span><span class="lt">Socks with sandals: <em>For me</em> · "Comfort is the whole look."</span></div></div>
+          <div class="fd"><span class="ini">K</span><div><b>Kabir</b><span class="ex2">Exploring leadership principles</span><span class="lt">Socks with sandals: <em>For me</em> · "Comfort is the whole look."</span></div></div>
           <div class="fd"><span class="ini">Z</span><div><b>Zoya</b><span class="ex2">Exploring fonts, music for focus</span><span class="lt">Pineapple on pizza: <em>Not for me</em> · "Warm pineapple is a texture crime."</span></div></div>
         </div>
       </div>
@@ -1086,7 +1086,7 @@ function tapNow(){ if(tapRes) tapRes(); else tapQ=true; }
 function openDlg(id){ $('scrim').classList.add('on'); $(id).classList.add('on'); }
 function closeAll(){ tok++; tapQ=false; ['scrim','plusM','tk','xq','shareM'].forEach(k=>$(k)?.classList.remove('on')); }
 async function plusAsk(){ const ep=epoch,t=$('plusT'),r=S[cur].querySelector('.roll'); t.textContent=''; r.classList.remove('on'); openDlg('plusM'); await wait(300); if(!alive(ep))return;
-  await fadeText(t,"You still haven't finished exploring fonts, historical business figures and fashion thoroughly. Are you sure you want to move on to something else?",ep); if(!alive(ep))return;
+  await fadeText(t,"You still haven't finished exploring fonts, leadership principles and fashion thoroughly. Are you sure you want to move on to something else?",ep); if(!alive(ep))return;
   await wait(1400); if(alive(ep)) r.classList.add('on'); }
 /* every question: the first click gives "I don't know", Patronus nudges, the next click types the real answer */
 async function ask(pm,field,q,nudge,ans,ep){
@@ -1191,11 +1191,11 @@ const XP={
          caslon:['assets/type/caslon.jpg','Caslon specimen, 1734',"This sheet is almost 300 years old: a printer showing off his letters. Which line would you read first, and why?","Your eye has already picked one. Where did it land first?","The big italic one at the top. It looks like it's leaning in to tell me something."]},
     pair:[['assets/type/wood-type.jpg','Wood type'],['assets/type/metal-type.jpg','Metal type'],"Both of these print letters. One is carved wood, one is cast metal. What feels different, and which would you print your own name in?","Imagine holding each one. Which feels warmer in your hand?","The wood looks warmer and chunkier. Metal feels exact. I'd pick wood for my name."],
     cb:['assets/type/ghost-sign.jpg','Ghost sign, Edinburgh',"Two weeks ago you said you like letters that \"show the hand that made them\". This sign was painted on a wall a century ago. Still true?","Look where the paint has worn away. Does that make it better or worse for you?","Still true. You can see where the brush ran out of paint. I love that.","That's the third time you've picked the handmade over the perfect. You can trust that one. It's yours."]},
-  biz:{name:'Business figures',
-    one:{walker:['assets/biz/walker.jpg','Madam C. J. Walker',"Madam C. J. Walker built a hair-care empire in the 1910s and trained thousands of women to sell for her. What about how she built it draws you in?","Think about who she brought along with her. What does that say about her?","She grew by lifting other women up. That's the kind of success I'd want."],
-         tata:['assets/biz/tata.jpg','Jamsetji Tata',"Jamsetji Tata planned a steel town with shady streets, parks and playing fields for its workers. What does that tell you about him?","Imagine being one of his workers. What would you notice first?","He planned for people, not just output. That feels rare even now."]},
-    pair:[['assets/biz/carnegie.jpg','Andrew Carnegie'],['assets/biz/rockefeller.jpg','John D. Rockefeller'],"Carnegie wrote that a man who dies rich dies disgraced, and gave most of his fortune away. Rockefeller built a near-monopoly in oil, then funded universities and medicine. Whose way sits better with you?","Picture working for each of them for a year. Which year would you rather have had?","Neither fully. Giving it away later doesn't undo how you made it. I'd want both parts to be decent."],
-    cb:['assets/biz/wedgwood.jpg','Josiah Wedgwood',"Last month you said you admire people who \"care about the craft, not just the sale\". Josiah Wedgwood ran thousands of trials before he was happy with his jasperware. Still true?","Think of something you own that was clearly made with care. How does it feel to use?","Still true. I'd rather make fewer things and make them right.","You keep picking the makers over the dealmakers. That one's yours."]},
+  biz:{name:'Leadership',
+    one:{walker:['assets/biz/walker.jpg','Lift others as you climb · Madam C. J. Walker',"Madam C. J. Walker trained thousands of women to sell for her and run their own businesses. The principle: lift others as you climb. Does that feel like how you'd want to lead?","Think of the best boss or teacher you've had. Did they make you feel bigger, or themselves?","Yes. The leaders I remember made me feel capable, not small."],
+         tata:['assets/biz/tata.jpg','Build for people, not just output · Jamsetji Tata',"Jamsetji Tata planned his steel town around shady streets, parks and playing fields for its workers. The principle: build for people, not just output. Where have you seen this, or seen it missing?","Think of a place you've worked or studied. What told you how much people mattered there?","My college library stayed open late during exams. Small things like that told me someone cared."]},
+    pair:[['assets/biz/carnegie.jpg','Share what you make · Carnegie'],['assets/biz/rockefeller.jpg','Win first, give later · Rockefeller'],"Two principles. Carnegie wrote that dying rich is a disgrace and gave most of his fortune away. Rockefeller built a near-monopoly in oil, then funded universities and medicine. Which would you lead by?","Picture working for each of them for a year. Which year would you rather have had?","Neither fully. Giving it away later doesn't undo how you made it. I'd want both parts to be decent."],
+    cb:['assets/biz/wedgwood.jpg','Care about the craft · Josiah Wedgwood',"Last month you said a good leader \"cares about the craft, not just the sale\". Josiah Wedgwood ran thousands of trials before he was happy with his pottery. Still true for you?","Think of something you own that was clearly made with care. How does it feel to use?","Still true. I'd rather make fewer things and make them right.","You keep choosing leaders who care how things are made. That principle is yours."]},
   fashion:{name:'Fashion',
     one:{kente:['assets/fashion/kente.jpg','Kente cloth, Ghana',"Kente is woven in narrow strips and sewn together, and each pattern has a name and a meaning. What does this one make you feel?","Look at just one colour. Where does your eye keep going back to?","The yellow diamonds. It feels loud in a happy way, like a celebration."],
          kimono:['assets/fashion/kimono.jpg','Bridal kimono, Japan',"This bridal kimono is from 19th-century Japan, embroidered by hand. What's the first detail you'd want to look at closely?","Look at the hem and the shoulders. Where did the maker spend the most time?","The birds near the shoulders. All that detail on a dark background feels like a secret."]},
